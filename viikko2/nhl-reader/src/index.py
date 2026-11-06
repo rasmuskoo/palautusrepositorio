@@ -2,7 +2,8 @@ import requests
 from player import Player
 
 def players_by_nationality(players, nationality):
-    return [player for player in players if player.nationality == nationality]
+    filtered = [player for player in players if player.nationality == nationality]
+    return sorted(filtered, key=lambda player: player.points, reverse=True)
 
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2024-25/players"
@@ -15,7 +16,7 @@ def main():
         players.append(player)
 
     nationality = "FIN"
-    print(f"Players from {nationality}:")
+    print(f"Players from {nationality}")
     print()
 
     for player in players_by_nationality(players, nationality):
