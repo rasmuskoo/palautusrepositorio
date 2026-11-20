@@ -13,6 +13,13 @@ Register With Valid Username And Password
     Click  button >> text=Register
     Register Should Succeed
 
+Register With Too Short Username And Valid Password
+    Set Username  pe
+    Set Password  pekka123
+    Set Password Confirmation  pekka123
+    Click  button >> text=Register
+    Register Should Fail With Message  Username must be at least 3 characters long
+
 *** Keywords ***
 Register Should Succeed
     Welcome Page Should Be Open
