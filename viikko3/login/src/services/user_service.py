@@ -43,6 +43,9 @@ class UserService:
         if len(username) < 3:
             raise UserInputError("Username must be at least 3 characters long")
 
+        if self._user_repository.find_by_username(username):
+            raise UserInputError("Username is already taken")
+
         if len(password) < 8:
             raise UserInputError("Password must be at least 8 characters long")
 

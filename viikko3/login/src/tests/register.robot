@@ -27,6 +27,13 @@ Register With Valid Username And Too Short Password
     Click  button >> text=Register
     Register Should Fail With Message  Password must be at least 8 characters long
 
+Register With Username That Is Already In Use
+    Set Username  kalle
+    Set Password  kalle123
+    Set Password Confirmation  kalle123
+    Click  button >> text=Register
+    Register Should Fail With Message  Username is already taken
+
 *** Keywords ***
 Register Should Succeed
     Welcome Page Should Be Open
