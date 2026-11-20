@@ -20,6 +20,13 @@ Register With Too Short Username And Valid Password
     Click  button >> text=Register
     Register Should Fail With Message  Username must be at least 3 characters long
 
+Register With Valid Username And Too Short Password
+    Set Username  pekka
+    Set Password  pekka12
+    Set Password Confirmation  pekka12
+    Click  button >> text=Register
+    Register Should Fail With Message  Password must be at least 8 characters long
+
 *** Keywords ***
 Register Should Succeed
     Welcome Page Should Be Open
