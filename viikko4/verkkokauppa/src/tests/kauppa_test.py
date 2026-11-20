@@ -103,3 +103,13 @@ class TestKauppa(unittest.TestCase):
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 3, "12345", "33333-44455", 3)
 
         self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 3)
+
+    def test_korista_poistettua_tuotetta_ei_veloiteta_ja_se_palautetaan_varastoon(self):
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.poista_korista(1)
+        self.kauppa.tilimaksu("pekka", "12345")
+
+        self.varasto_mock.palauta_varastoon.assert_called_with(Tuote(1, "maito", 5))
+        self.pankki_mock.tilisiirto.assert_called_with("pekka", 42, "12345", "33333-44455", 3)
