@@ -36,3 +36,14 @@ Go To Starting Page
 Go To Login Page
     Go To  ${LOGIN_URL}
 
+Go To Register Page
+    Go To  ${REGISTER_URL}
+
+Set Username
+    [Arguments]  ${username}
+    Fill Text  id=username  ${username}
+
+Set Password
+    [Arguments]  ${password}
+    Fill Secret  id=password  $password
+
