@@ -83,3 +83,23 @@ class TestKauppa(unittest.TestCase):
 
         # toisen ostoksen summassa ei saa näkyä ensimmäisen ostoksen maitoa
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 42, "12345", "33333-44455", 3)
+
+    def test_jokaiselle_maksulle_pyydetaan_uusi_viitenumero(self):
+        self.viitegeneraattori_mock.uusi.side_effect = [1, 2, 3]
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("pekka", "12345")
+        self.pankki_mock.tilisiirto.assert_called_with("pekka", 1, "12345", "33333-44455", 5)
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("arto", "54321")
+        self.pankki_mock.tilisiirto.assert_called_with("arto", 2, "54321", "33333-44455", 5)
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("pekka", "12345")
+        self.pankki_mock.tilisiirto.assert_called_with("pekka", 3, "12345", "33333-44455", 3)
+
+        self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 3)
