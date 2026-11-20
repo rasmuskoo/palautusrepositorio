@@ -30,6 +30,9 @@ Main Page Should Be Open
 Register Page Should Be Open
     Get Title  ==  Register
 
+Welcome Page Should Be Open
+    Get Title  ==  Welcome to Ohtu Application!
+
 Go To Starting Page
     Go To  ${HOME_URL}
 
